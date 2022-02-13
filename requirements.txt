@@ -6,3 +6,5 @@ tqdm
 opencv-python
 matplotlib
 numpy
+imutils
+pre-commit
