@@ -1,0 +1,8 @@
+duetwebapi
+pandas
+ipython
+jupyter
+tqdm
+opencv-python
+matplotlib
+numpy
