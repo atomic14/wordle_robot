@@ -1,4 +1,3 @@
-duetwebapi
 pandas
 ipython
 jupyter
