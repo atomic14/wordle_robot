@@ -3,7 +3,7 @@ pandas
 ipython
 jupyter
 tqdm
-opencv-python
+opencv-python==4.4.0.46
 matplotlib
 numpy
 imutils
