@@ -8,3 +8,4 @@ matplotlib
 numpy
 imutils
 pre-commit
+picamera
