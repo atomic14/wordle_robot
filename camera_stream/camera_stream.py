@@ -15,4 +15,4 @@ def grab_frame():
 if __name__ == "__main__":
     camera = PiCamera()
     camera.resolution = (1024, 768)
-    app.run(host="0.0.0.0", port=8000, threaded=True, debug=True)
+    app.run(host="0.0.0.0", port=8000, threaded=True, debug=False, use_reloader=False)
