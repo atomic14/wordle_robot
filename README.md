@@ -27,3 +27,9 @@ Finally, install the dependencies
 ```
 pip install -r requirements.txt
 ```
+
+To install the PiCamera dependency (if you want to run everything on the pi):
+
+```
+pip install -r requirements_pi.txt
+```

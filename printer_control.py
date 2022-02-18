@@ -62,10 +62,12 @@ class PrinterAPI(object):
         while not self.is_homed():
             time.sleep(0.5)
 
-    def move(self, x, y, z):
+    def move(self, x, y, z, no_wait=False):
         """Move the printer to the given coordinates"""
         self.send_code(f"G0 X{x} Y{y} Z{z}")
+        if no_wait:
+            return
         coords = self.get_coords()
         while coords["X"] != x or coords["Y"] != y or coords["Z"] != z:
-            time.sleep(0.1)
+            time.sleep(0.05)
             coords = self.get_coords()
