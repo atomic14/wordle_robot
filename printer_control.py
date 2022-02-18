@@ -62,12 +62,26 @@ class PrinterAPI(object):
         while not self.is_homed():
             time.sleep(0.5)
 
-    def move(self, x, y, z, no_wait=False):
+    def move(self, x=None, y=None, z=None, no_wait=False):
         """Move the printer to the given coordinates"""
-        self.send_code(f"G0 X{x} Y{y} Z{z}")
+        command = "G0 "
+        if x is not None:
+            command += f"X{x} "
+        if y is not None:
+            command += f"Y{y} "
+        if z is not None:
+            command += f"Z{z} "
+        self.send_code(command)
         if no_wait:
             return
         coords = self.get_coords()
-        while coords["X"] != x or coords["Y"] != y or coords["Z"] != z:
+        while (
+            (x is not None and coords["X"] != x)
+            or (y is not None and coords["Y"] != y)
+            or (z is not None and coords["Z"] != z)
+        ):
             time.sleep(0.05)
             coords = self.get_coords()
+
+    def present_bed(self):
+        self.move(y=1000, no_wait=True)
