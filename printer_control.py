@@ -71,7 +71,7 @@ class PrinterAPI(object):
             command += f"Y{y} "
         if z is not None:
             command += f"Z{z} "
-        self.send_code(command)
+        self.send_code(command + "F100000")
         if no_wait:
             return
         coords = self.get_coords()
@@ -84,4 +84,4 @@ class PrinterAPI(object):
             coords = self.get_coords()
 
     def present_bed(self):
-        self.move(y=1000, no_wait=True)
+        self.move(x=0, y=228, no_wait=False)
