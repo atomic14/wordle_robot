@@ -2309,7 +2309,7 @@ correct_words = [
     "rural",
     "shave",
 ]
-possible_words = [
+allowed_words = [
     "aahed",
     "aalii",
     "aargh",
@@ -12921,6 +12921,7 @@ possible_words = [
     "zonda",
     "zoned",
     "zoner",
+    "zones",
     "zonks",
     "zooea",
     "zooey",

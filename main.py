@@ -13,6 +13,7 @@ from ipynb.fs.defs.image_processing import (
 from printer_control import PrinterAPI
 from camera import Camera
 from words import correct_words
+import time
 
 PRINTER_URL = "http://192.168.1.240"
 # these number were obtained by manually moving the printer heead
@@ -35,8 +36,8 @@ PHONE_SCREEN_TOP_RIGHT = (PHONE_SCREEN_WIDTH, PHONE_SCREEN_HEIGHT)
 
 
 def send_word(word, printer, phone_transform, printer_transform):
-    for letter in word:
-        press_key(letter, printer, phone_transform, printer_transform)
+    for index, letter in enumerate(word):
+        press_key(letter, printer, phone_transform, printer_transform, index == 4)
 
 
 def process_colors(word, grid_colors, row_index):
@@ -77,6 +78,7 @@ def main():
     printer.present_bed()
     # we're now ready to start solving
     input("Put your phone on the bed and press enter...")
+    time.sleep(10)
     # grab a frame from the camera
     print("Grabbing frame...")
     img = camera.grab_frame()
