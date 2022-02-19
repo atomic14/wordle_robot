@@ -65,7 +65,8 @@ def process_colors(word, grid_colors, row_index):
 
 def main():
     # initialize the camera
-    camera = Camera(url="http://wordle.local:8000/grab_frame")
+    # camera = Camera(url="http://wordle.local:8000/grab_frame")
+    camera = Camera()
     # initialize the printer
     printer = PrinterAPI(PRINTER_URL)
     printer.connect()
