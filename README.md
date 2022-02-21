@@ -59,3 +59,11 @@ This contains the code for solving the wordle puzzles.
 # Python code
 
 The file `main.py` contains the brains of the robot. This file can be run on a RaspberryPi with direct access to a camera or on the desktop with access to a URL that returns JPEG files.
+
+`camera.py` contains the code for interfacing with the camera - it will either read directly from the PiCamera, from a file, or from a URL.
+
+`printer_control.py` this contains the code for interfacing with the printer. My printer is running the Duet RepRap V3 firmware.
+
+# Camera Stream
+
+If you want to run the code on your desktop then you can use the code in the `camera_stream` folder to spin up a simple server on the RPi that will return JPEG files from the camera.
