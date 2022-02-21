@@ -30,5 +30,6 @@ class Camera(object):
         if self.file:
             return cv2.imread(self.file)
         # use the picam directly
+        self.rawCapture = PiRGBArray(self.camera)
         self.camera.capture(self.rawCapture, format="bgr")
         return self.rawCapture.array

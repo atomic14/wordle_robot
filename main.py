@@ -14,6 +14,7 @@ from printer_control import PrinterAPI
 from camera import Camera
 from words import correct_words
 import time
+from termcolor import colored
 
 PRINTER_URL = "http://192.168.1.240"
 # these number were obtained by manually moving the printer heead
@@ -37,7 +38,7 @@ PHONE_SCREEN_TOP_RIGHT = (PHONE_SCREEN_WIDTH, PHONE_SCREEN_HEIGHT)
 
 def send_word(word, printer, phone_transform, printer_transform):
     for index, letter in enumerate(word):
-        press_key(letter, printer, phone_transform, printer_transform, index == 4)
+        press_key(letter, printer, phone_transform, printer_transform, index == 5)
 
 
 def process_colors(word, grid_colors, row_index):
@@ -65,7 +66,8 @@ def process_colors(word, grid_colors, row_index):
 
 def main():
     # initialize the camera
-    camera = Camera(url="http://wordle.local:8000/grab_frame")
+    # camera = Camera(url="http://wordle.local:8000/grab_frame")
+    camera = Camera()
     # initialize the printer
     printer = PrinterAPI(PRINTER_URL)
     printer.connect()
@@ -78,7 +80,6 @@ def main():
     printer.present_bed()
     # we're now ready to start solving
     input("Put your phone on the bed and press enter...")
-    time.sleep(10)
     # grab a frame from the camera
     print("Grabbing frame...")
     img = camera.grab_frame()
@@ -131,8 +132,8 @@ def main():
         img = camera.grab_frame()
         img, gray, hsv = preprocess_image(img)
         # get the grid colors
+        print("Getting grid colours")
         grid_colors, _, _ = get_grid_colors(hsv, phone_transform)
-        print(grid_colors)
         # work out the colors for the guessed letters
         (
             letters_correct_position,
@@ -140,10 +141,24 @@ def main():
             letters_in_word,
             letters_not_in_word,
         ) = process_colors(guess, grid_colors, row_index)
-        print("Letters in correct positions", letters_correct_position)
-        print("Letters in wrong positions", letters_wrong_position)
-        print("Letters in word", letters_in_word)
-        print("Letters not in word", letters_not_in_word)
+        # print("Letters in correct positions", letters_correct_position)
+        # print("Letters in wrong positions", letters_wrong_position)
+        # print("Letters in word", letters_in_word)
+        # print("Letters not in word", letters_not_in_word)
+        # display the word with the correct letters
+        display_text = []
+        correct_position_letters = set(
+            [letter[0] for letter in letters_correct_position]
+        )
+        wring_position_letters = set([letter[0] for letter in letters_wrong_position])
+        for letter in guess:
+            if letter in correct_position_letters:
+                display_text.append(colored(letter, color="grey", on_color="on_green"))
+            elif letter in wring_position_letters:
+                display_text.append(colored(letter, color="grey", on_color="on_yellow"))
+            else:
+                display_text.append(letter)
+        print("".join(display_text))
         # have we finised?
         if len(letters_correct_position) == 5:
             print("We've found the word!")
@@ -156,6 +171,10 @@ def main():
             letters_in_word,
             letters_not_in_word,
         )
+        if len(words) == 0:
+            print("No words left - we must have succeeded!")
+            break
+        print(f"We have #{len(words)} potential answers")
         # get the next best guess
         guess = get_best_guess(words)
         row_index = row_index + 1
