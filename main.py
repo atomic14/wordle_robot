@@ -48,14 +48,15 @@ def process_colors(word, grid_colors, row_index):
     letters_wrong_position = []
 
     for index, letter in enumerate(word):
-        if grid_colors[row_index][index] == PolygonColor.NONE:
-            letters_not_in_word.add(letter)
         if grid_colors[row_index][index] == PolygonColor.GREEN:
             letters_correct_position.append((letter, index))
             letters_in_word.add(letter)
-        if grid_colors[row_index][index] == PolygonColor.ORANGE:
+        elif grid_colors[row_index][index] == PolygonColor.ORANGE:
             letters_wrong_position.append((letter, index))
             letters_in_word.add(letter)
+        elif grid_colors[row_index][index] == PolygonColor.NONE:
+            letters_not_in_word.add(letter)
+
     return (
         letters_correct_position,
         letters_wrong_position,
