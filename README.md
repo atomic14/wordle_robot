@@ -16,6 +16,13 @@ You'll need python3 installed - check to see what you have with:
 python3 -v
 ```
 
+You'll also need some native dependencies:
+
+```
+sudo apt-get update
+sudo apt-get install libjpeg-dev zlib1g-dev libfreetype6-dev liblcms2-dev libopenjp2-7 libtiff5 libatlas-base-dev -y
+```
+
 And follow any instructions to install python3.
 
 Run the following to create the virtual environment:
@@ -25,8 +32,6 @@ python3 -m venv venv
 ```
 
 And then activate the environment:
-
-Finally, activate the virtual environment:
 
 ```
 source venv/bin/activate
@@ -41,6 +46,7 @@ pip install -r requirements.txt
 To install the PiCamera dependency (if you want to run everything on the pi):
 
 ```
+sudo apt-get install python3-picamera -y
 pip install -r requirements_pi.txt
 ```
 
